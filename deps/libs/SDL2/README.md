@@ -1,1 +1,1 @@
-Place SDL2 lib for the platforms you are compiling for in this folder.
+Place SDL2 lib for the platforms you are compiling for in this folder. If on linux, download the dev package from your software repos.
