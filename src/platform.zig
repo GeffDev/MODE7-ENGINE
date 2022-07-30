@@ -1,16 +1,16 @@
 const target = @import("builtin").target;
 const std = @import("std");
 
-pub export fn CheckPlatform() void {
+pub export fn CheckPlatform() [*:0]const u8 {
     switch (target.os.tag) {
         .linux => {
-            std.debug.print("PLATFORM: LINUX\n", .{});
+            return "LINUX";
         },
         .windows => {
-            std.debug.print("PLATFORM: WINDOWS\n", .{});
+            return "WINDOWS";
         },
         else => {
-            std.debug.print("PLATFORM: UNKNOWN\n", .{});
+            return "UNKNOWN";
         },
     }
 }
