@@ -9,8 +9,6 @@ pub fn build(b: *std.build.Builder) void {
     lib.setBuildMode(mode);
     lib.install();
 
-    b.installFile("zig-out/lib/libmode7.a", "../../sandbox/deps/libs/mode7/libmode7.a");
-
     const main_tests = b.addTest("src/main.zig");
     main_tests.setBuildMode(mode);
 
