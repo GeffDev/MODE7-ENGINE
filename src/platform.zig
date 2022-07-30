@@ -2,12 +2,15 @@ const target = @import("builtin").target;
 const std = @import("std");
 
 pub export fn CheckPlatform() void {
-    switch(target.os.tag) {
+    switch (target.os.tag) {
         .linux => {
-            std.log.info("linux", .{});
+            std.debug.print("PLATFORM: LINUX", .{});
+        },
+        .windows => {
+            std.debug.print("PLATFORM: WINDOWS", .{});
         },
         else => {
-            std.log.info("unknown", .{});
-        }
+            std.debug.print("PLATFORM: UNKNOWN", .{});
+        },
     }
 }
