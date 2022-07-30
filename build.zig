@@ -7,9 +7,8 @@ pub fn build(b: *std.build.Builder) void {
 
     const lib = b.addStaticLibrary("mode7", "src/platform.zig");
     lib.setBuildMode(mode);
-    lib.install();
-
     lib.linkLibC();
+    lib.install();
 
     const main_tests = b.addTest("src/main.zig");
     main_tests.setBuildMode(mode);
