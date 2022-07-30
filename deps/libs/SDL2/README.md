@@ -1,0 +1,1 @@
+Place SDL2 lib for the platforms you are compiling for in this folder.
