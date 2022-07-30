@@ -1,5 +1,5 @@
 const std = @import("std");
-const platform = @import("platform.zig");
+pub const platform = @import("platform.zig");
 const testing = std.testing;
 
 pub export fn add(a: i32, b: i32) i32 {
