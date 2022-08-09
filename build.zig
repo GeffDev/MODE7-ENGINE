@@ -6,7 +6,7 @@ pub fn build(b: *std.build.Builder) void {
     // between Debug, ReleaseSafe, ReleaseFast, and ReleaseSmall.
     const mode = b.standardReleaseOptions();
 
-    const lib = b.addStaticLibrary("mode7", "src/platform.zig");
+    const lib = b.addStaticLibrary("mode7", "src/mode7.zig");
     lib.setBuildMode(mode);
     lib.linkLibC();
 
