@@ -1,11 +1,14 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-const LogWarnEnabled: bool = true;
-const LogInfoEnabled: bool = true;
-const LogDebugEnabled: bool = true;
+var LogWarnEnabled: bool = true;
+var LogInfoEnabled: bool = true;
+var LogDebugEnabled: bool = true;
 
-// add a build type check to disable select log type
+const LogTypes = enum(u8) { LogError = 0, LogFatal = 1, LogWarn = 2, LogInfo = 3, LogDebug = 4 };
 
-const LogTypes = enum { LogError = 0, LogFatal = 1, LogWarn = 2, LogInfo = 3, LogDebug = 4 };
-
+pub export fn BuildTypeLogCheck() void {
+    if (builtin.Mode == .ReleaseSmall || .ReleaseFast) {
+        LogDebugEnabled = false;
+    }
+}
