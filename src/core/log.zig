@@ -9,19 +9,20 @@ var LogDebugEnabled: bool = true;
 
 pub export fn buildTypeLogCheck() void {
     comptime {
-        if (builtin.Mode == .ReleaseSmall || .ReleaseFast) {
+        if (builtin.mode == .ReleaseSmall || .ReleaseFast) {
             LogDebugEnabled = false;
         }
     }
 }
 
-pub export fn writeToLog(log_type: LogTypes, message: *[]const u8) void {
+pub export fn writeToLog(log_type: LogTypes, message: [*:0]const u8) void {
     // seems to be wildly inefficient, but who cares right now
     const stdout = std.io.getStdOut().writer();
     
     switch (log_type) {
         LogTypes.LogError => {
-            stdout.print("[ERROR]: {s}\n", .{&message});
-        }
+            try stdout.print("[ERROR]: {s}\n", .{&message});
+        },
+        else => return
     }
 }
