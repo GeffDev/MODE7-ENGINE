@@ -8,25 +8,20 @@ var LogInfoEnabled: bool = true;
 var LogDebugEnabled: bool = true;
 
 pub export fn buildTypeLogCheck() void {
-    if (builtin.Mode == .ReleaseSmall || .ReleaseFast) {
-        LogDebugEnabled = false;
-    }
-}
-
-pub export fn initLog() bool {
-    return true;
-}
-
-pub export fn cleanUpLog() void {}
-
-pub export fn logInput(log_type: LogTypes, message: []const u8) void {
-    if (log_type == LogTypes.LogDebug) {
-        if (LogDebugEnabled == false) {
-            return;
+    comptime {
+        if (builtin.Mode == .ReleaseSmall || .ReleaseFast) {
+            LogDebugEnabled = false;
         }
     }
-
-    logOutput(log_type, message);
 }
 
-pub export fn logOutput(log_type: LogTypes, message: []const u8) void {}
+pub export fn writeToLog(log_type: LogTypes, message: *[]const u8) void {
+    // seems to be wildly inefficient, but who cares right now
+    const stdout = std.io.getStdOut().writer();
+    
+    switch (log_type) {
+        LogTypes.LogError => {
+            stdout.print("[ERROR]: {s}\n", .{&message});
+        }
+    }
+}
