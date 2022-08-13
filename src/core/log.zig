@@ -9,7 +9,7 @@ var LogDebugEnabled: bool = true;
 
 pub export fn buildTypeLogCheck() void {
     comptime {
-        if (builtin.Mode == @Type(.ReleaseSmall) or @Type(.ReleaseFast)) {
+        if (builtin.mode == @Type(.ReleaseSmall) or @Type(.ReleaseFast)) {
             LogDebugEnabled = false;
         }
     }
