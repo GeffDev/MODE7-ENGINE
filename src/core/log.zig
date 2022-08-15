@@ -41,7 +41,6 @@ pub fn writeToLog(log_type: LogTypes, message: [*:0]const u8) !void {
         },
         LogTypes.LogWarn => {
             try stdout.print("[WARNING]: {s}\n", .{message});
-        },
-        else => return,
+        }
     }
 }
