@@ -9,7 +9,7 @@ var LogDebugEnabled: bool = true;
 
 pub fn buildTypeLogCheck() void {
     comptime {
-        if (std.builtin.Mode == .ReleaseSmall or .ReleaseFast) {
+        if (std.builtin.Mode.ReleaseSmall or std.builtin.Mode.ReleaseFast) {
             LogDebugEnabled = false;
         }
     }
@@ -21,6 +21,10 @@ pub fn writeToLog(log_type: LogTypes, message: [*:0]const u8) !void {
 
     // as said above, this is almost certainly a terrible way of doing things,
     // but meh, we will fix later
+
+    if (log_type == LogTypes.LogDebug and LogDebugEnabled == false) {
+        return;
+    }
 
     switch (log_type) {
         LogTypes.LogError => {
