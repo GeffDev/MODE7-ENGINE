@@ -1,13 +1,13 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-pub export const LogTypes = enum(u8) { LogError = 0, LogFatal = 1, LogWarn = 2, LogInfo = 3, LogDebug = 4 };
+pub const LogTypes = enum(u8) { LogError = 0, LogFatal = 1, LogWarn = 2, LogInfo = 3, LogDebug = 4 };
 
 var LogWarnEnabled: bool = true;
 var LogInfoEnabled: bool = true;
 var LogDebugEnabled: bool = true;
 
-pub export fn buildTypeLogCheck() void {
+pub fn buildTypeLogCheck() void {
     comptime {
         if (builtin.mode == .ReleaseSmall or .ReleaseFast) {
             LogDebugEnabled = false;
@@ -15,7 +15,7 @@ pub export fn buildTypeLogCheck() void {
     }
 }
 
-pub export fn writeToLog(log_type: LogTypes, message: [*:0]const u8) void {
+pub fn writeToLog(log_type: LogTypes, message: [*:0]const u8) void {
     // seems to be wildly inefficient, but who cares right now
     const stdout = std.io.getStdOut().writer();
     
