@@ -9,13 +9,8 @@ var LogDebugEnabled: bool = true;
 
 pub fn buildTypeLogCheck() void {
     comptime {
-        //if (std.builtin.Mode.ReleaseSmall or std.builtin.Mode.ReleaseFast) {
-        //    LogDebugEnabled = false;
-        //}
-
-        switch (std.builtin.Mode) {
-            .ReleaseSmall => LogDebugEnabled = false,
-            .ReleaseFast => LogDebugEnabled = false
+        if (builtin.mode == std.builtin.Mode.ReleaseSmall or builtin.mode == std.builtin.Mode.ReleaseFast) {
+            LogDebugEnabled = false;
         }
     }
 }
@@ -34,6 +29,9 @@ pub fn writeToLog(log_type: LogTypes, message: [*:0]const u8) !void {
     switch (log_type) {
         LogTypes.LogError => {
             try stdout.print("[ERROR]: {s}\n", .{message});
+        },
+        LogTypes.LogDebug => {
+            try stdout.print("[DEBUG]: {s}\n", .{message});
         },
         else => return,
     }
