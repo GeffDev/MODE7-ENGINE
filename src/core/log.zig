@@ -9,8 +9,13 @@ var LogDebugEnabled: bool = true;
 
 pub fn buildTypeLogCheck() void {
     comptime {
-        if (std.builtin.Mode.ReleaseSmall or std.builtin.Mode.ReleaseFast) {
-            LogDebugEnabled = false;
+        //if (std.builtin.Mode.ReleaseSmall or std.builtin.Mode.ReleaseFast) {
+        //    LogDebugEnabled = false;
+        //}
+
+        switch (std.builtin.Mode) {
+            .ReleaseSmall => LogDebugEnabled = false,
+            .ReleaseFast => LogDebugEnabled = false
         }
     }
 }
