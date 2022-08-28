@@ -7,20 +7,15 @@ var LogWarnEnabled: bool = true;
 var LogInfoEnabled: bool = true;
 var LogDebugEnabled: bool = true;
 
-pub fn buildTypeLogCheck() void {
+pub fn writeToLog(log_type: LogTypes, message: [*:0]const u8) !void {
     comptime {
         if (builtin.mode == std.builtin.Mode.ReleaseSmall or builtin.mode == std.builtin.Mode.ReleaseFast) {
             LogDebugEnabled = false;
         }
     }
-}
-
-pub fn writeToLog(log_type: LogTypes, message: [*:0]const u8) !void {
+    
     // seems to be wildly inefficient, but who cares right now
     const stdout = std.io.getStdOut().writer();
-
-    // as said above, this is almost certainly a terrible way of doing things,
-    // but meh, we will fix later
 
     if (log_type == LogTypes.LogDebug and LogDebugEnabled == false) {
         return;

@@ -1,16 +1,13 @@
 const target = @import("builtin").target;
 const std = @import("std");
 
-pub fn checkPlatform() [*:0]const u8 {
-    switch (target.os.tag) {
-        .linux => {
-            return "LINUX";
-        },
-        .windows => {
-            return "WINDOWS";
-        },
-        else => {
-            return "UNKNOWN";
-        },
-    }
-}
+const platforms = enum {
+    M7_WINDOWS,
+    M7_LINUX,
+};
+
+pub const platform: platforms = switch(target.os.tag) {
+    .windows => .M7_WINDOWS,
+    .linux => .M7_LINUX,
+    else => unreachable,
+};
