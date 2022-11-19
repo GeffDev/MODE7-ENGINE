@@ -1,2 +1,2 @@
 # MODE7-ENGINE
-Do not use, this is my first attempt at writing an engine.
+This repo is going to be dormant for a little bit.
